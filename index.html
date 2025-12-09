@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Study Timer</title>
+
+  <!-- Calm aesthetic font -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- Background -->
+  <div id="bg"></div>
+
+  <!-- LOGO IMAGE -->
+  <img src="sws.png" class="logo-img" alt="SWS Logo">
+
+  <!-- MAIN TIMER UI -->
+  <div class="container">
+
+    <div class="modes">
+      <button class="mode active" data-mode="pomodoro" data-min="30">pomodoro</button>
+      <button class="mode" data-mode="short" data-min="5">short break</button>
+      <button class="mode" data-mode="long" data-min="15">long break</button>
+    </div>
+
+    <div id="timer">30:00</div>
+
+    <div class="controls">
+      <button id="start">start</button>
+      <button id="reset" class="icon-btn">⟳</button>
+      <button id="settings-btn" class="icon-btn">⚙</button>
+    </div>
+  </div>
+
+  <!-- SPOTIFY MINI PLAYER -->
+  <div id="spotify-box" class="draggable">
+    <iframe
+      id="spotify-iframe"
+      src="https://open.spotify.com/embed/playlist/5B12Dhlg3OHacyBUXbFO3D"
+      width="360"
+      height="120"
+      frameborder="0">
+    </iframe>
+  </div>
+
+  <!-- FULLSCREEN BUTTON -->
+  <button id="fullscreen-btn">⛶</button>
+
+  <!-- SETTINGS OVERLAY -->
+  <div id="settings-overlay"></div>
+
+  <!-- SETTINGS PANEL -->
+  <div id="settings-modal">
+
+    <div class="settings-left">
+      <button class="tab active" data-tab="general">General</button>
+      <button class="tab" data-tab="timers">Timers</button>
+      <button class="tab" data-tab="spotify">Spotify</button>
+      <button class="tab" data-tab="about">About</button>
+
+      <button id="reset-all" class="reset-btn">Reset All</button>
+    </div>
+
+    <div class="settings-right">
+
+      <!-- GENERAL -->
+      <div class="settings-right">
+
+  <!-- GENERAL -->
+  <div class="tab-content active" id="general">
+      <label class="label-title">Select theme:</label>
+      <select id="theme-select">
+          <option value="animescenary">Dreamy Clouds</option>
+          <option value="chinaskyline">China Skyline</option>
+          <option value="nycskyline">NewYork Skyline</option>
+          <option value="shinchan">Shinchan</option>
+          <option value="street">Street</option>
+      </select>
+
+      <div class="toggle-row">
+        <input type="checkbox" id="notify-toggle">
+        <span>Show notification when timer finishes</span>
+      </div>
+
+      <div class="toggle-row">
+        <input type="checkbox" id="show-spotify" checked>
+        <span>Show Spotify playlist</span>
+      </div>
+
+      <label class="label-title">Upload Custom Background:</label>
+      <input id="bg-upload" type="file" accept="image/*">
+  </div>
+
+
+  <!-- TIMERS -->
+  <div class="tab-content" id="timers">
+      <label class="label-title">Timer durations:</label>
+
+      <div class="timer-row">
+          <span>Pomodoro</span>
+          <input type="number" id="set-pomo" value="30">
+          <span>min</span>
+      </div>
+
+      <div class="timer-row">
+          <span>Short Break</span>
+          <input type="number" id="set-short" value="5">
+          <span>min</span>
+      </div>
+
+      <div class="timer-row">
+          <span>Long Break</span>
+          <input type="number" id="set-long" value="15">
+          <span>min</span>
+      </div>
+  </div>
+
+
+  <!-- SOUNDS (coming soon) -->
+  <div class="tab-content" id="sounds">
+      <label class="label-title">Sounds:</label>
+      <p style="opacity:0.7; font-size:17px;">Coming soon 🔧</p>
+  </div>
+
+
+  <!-- SPOTIFY -->
+  <div class="tab-content" id="spotify">
+      <label class="label-title">Spotify Playlist:</label>
+      <input id="spotify-link" placeholder="Paste Spotify playlist link...">
+      <button id="load-spotify" class="white-btn">Load Playlist</button>
+  </div>
+
+
+  <!-- ABOUT -->
+  <div class="tab-content" id="about">
+      <label class="label-title">About:</label>
+      <p>Made for calm productive study sessions ✨</p>
+      <p>My Website → <a href="https://aymaaan.netlify.app" target="_blank" style="color:#9cf">aymaaan.netlify.app</a></p>
+  </div>
+
+
+  <!-- BOTTOM BUTTONS -->
+  <div class="settings-bottom">
+      <button id="close-settings" class="gray-btn">Close</button>
+      <button id="save-settings" class="white-btn">Save</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
