@@ -106,7 +106,7 @@ body {
   position: fixed;
   top: 20px;
   right: 20px;
-  cursor: move;
+  cursor: default;
   z-index: 50;
 }
 
@@ -415,4 +415,80 @@ body {
 
 #load-spotify:hover {
   transform: translateY(-2px);
+}
+
+/* Spotify Volume Warning Overlay */
+#spotify-warning-overlay {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 360px;
+  height: 120px;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+
+.warning-box {
+  text-align: center;
+  color: white;
+  padding: 10px 20px;
+}
+
+#spotify-ok {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#fullscreen-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 50px;
+  background: none !important;
+  padding: 0;
+  border: none;
+  outline: none;
+  font-size: 45px;
+  color: white;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+#fullscreen-btn:hover {
+  transform: scale(1.12);
+  opacity: 0.85;
+}
+
+/* Tooltip */
+#fullscreen-btn::after {
+  content: "Press F for fullscreen";
+  position: absolute;
+  bottom: 60px;
+  right: -20px;
+
+  background: rgba(0,0,0,0.45);
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: white;
+  opacity: 0;
+  pointer-events: none;
+
+  backdrop-filter: blur(6px);
+  transition: 0.25s ease;
+  white-space: nowrap;
+}
+
+#fullscreen-btn:hover::after {
+  opacity: 1;
+  transform: translateY(-4px);
 }

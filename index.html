@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Study Timer</title>
+  <title>SWS - Timer</title>
 
   <!-- Calm aesthetic font -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -35,6 +35,13 @@
       <button id="settings-btn" class="icon-btn">⚙</button>
     </div>
   </div>
+
+<div id="spotify-warning-overlay">
+  <div class="warning-box">
+    <p>This playlist may start loud. Adjust device volume if needed.</p>
+    <button id="spotify-ok">OK</button>
+  </div>
+</div>
 
   <!-- SPOTIFY MINI PLAYER -->
   <div id="spotify-box" class="draggable">
@@ -150,7 +157,9 @@
   </div>
 
 </div>
+<audio id="end-sound" src="calm.mp3" preload="auto"></audio>
 
 <script src="script.js"></script>
+
 </body>
 </html>

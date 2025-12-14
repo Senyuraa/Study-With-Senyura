@@ -39,23 +39,39 @@ function startTimer() {
     if (timeLeft > 0) {
       timeLeft--;
       renderTimer();
-    } else {
-      pauseTimer();
-    }
+      updateTabTitle();
+      } else {
+          pauseTimer();
+           handleTimerFinished(); // <<< Sound + Notification
+      }
+
   }, 1000);
 }
+
 
 function pauseTimer() {
   running = false;
   startBtn.textContent = "start";
   clearInterval(timerInterval);
+  updateTabTitle();
 }
+
 
 function resetTimerToCurrentMode() {
   if (currentMode === "pomodoro") timeLeft = settings.pomodoro * 60;
   if (currentMode === "short") timeLeft = settings.short * 60;
   if (currentMode === "long") timeLeft = settings.long * 60;
+
   renderTimer();
+  updateTabTitle();
+}
+
+function updateTabTitle() {
+  if (running) {
+    document.title = `${formatTime(timeLeft)} - SWS`;
+  } else {
+    document.title = "SWS";
+  }
 }
 
 startBtn.onclick = () => running ? pauseTimer() : startTimer();
@@ -66,15 +82,24 @@ document.getElementById("reset").onclick = () => {
 };
 
 // Mode buttons
+// Mode switch buttons (fixed behavior)
 document.querySelectorAll(".mode").forEach((btn) => {
-  btn.onclick = () => {
+  btn.addEventListener("click", () => {
+
+    // If timer is running → DO NOT SWITCH MODES
+    if (running) {
+      return;
+    }
+
+    // Normal behavior: switch UI
     document.querySelector(".mode.active")?.classList.remove("active");
     btn.classList.add("active");
 
     currentMode = btn.dataset.mode;
-    resetTimerToCurrentMode();
-  };
+    resetTimerToCurrentMode();  // Reset only when timer paused
+  });
 });
+
 
 // ---------- SETTINGS ----------
 const modal = document.getElementById("settings-modal");
@@ -202,37 +227,6 @@ document.getElementById("show-spotify").onchange = function () {
     this.checked ? "block" : "none";
 };
 
-// ---------- DRAG SPOTIFY ----------
-function dragElement(el) {
-  let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-
-  el.onmousedown = dragMouseDown;
-
-  function dragMouseDown(e) {
-    e.preventDefault();
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDrag;
-    document.onmousemove = drag;
-  }
-
-  function drag(e) {
-    e.preventDefault();
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    el.style.top = el.offsetTop - pos2 + "px";
-    el.style.left = el.offsetLeft - pos1 + "px";
-  }
-
-  function closeDrag() {
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
-}
-dragElement(document.getElementById("spotify-box"));
-
 // ---------- FULLSCREEN ----------
 document.getElementById("fullscreen-btn").onclick = () =>
   !document.fullscreenElement
@@ -244,3 +238,40 @@ document.getElementById("theme-select").addEventListener("change", () => {
   settings.theme = document.getElementById("theme-select").value;
   applyTheme(settings.theme);
 });
+
+const spotifyOverlay = document.getElementById("spotify-warning-overlay");
+const spotifyOk = document.getElementById("spotify-ok");
+
+spotifyOk.addEventListener("click", () => {
+  spotifyOverlay.style.display = "none";
+  // User acknowledged → iframe becomes usable and will play when clicked
+});
+
+// ---------- FULLSCREEN HOTKEY (F) ----------
+document.addEventListener("keydown", (e) => {
+  if (e.key.toLowerCase() === "f") {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }
+});
+
+function handleTimerFinished() {
+  // Play sound
+  const sound = document.getElementById("end-sound");
+  sound.currentTime = 0;
+  sound.play().catch(() => {}); // autoplay block bypass
+
+  // Notification
+  if (settings.notify) {
+    if (Notification.permission === "granted") {
+      new Notification("Session Finished!", {
+        body: `${currentMode} session is over.`,
+      });
+    } else {
+      Notification.requestPermission();
+    }
+  }
+}
