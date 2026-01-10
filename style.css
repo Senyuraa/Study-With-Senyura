@@ -9,7 +9,7 @@
 body {
   overflow: hidden;
 }
-
+   
 /* BACKGROUND */
 #bg {
   position: fixed;
@@ -492,3 +492,4 @@ body {
   opacity: 1;
   transform: translateY(-4px);
 }
+
