@@ -7,7 +7,7 @@
 }
 
 body {
-  overflow: hidden;
+  overflow: hidden; 
 }
    
 /* BACKGROUND */
@@ -492,4 +492,5 @@ body {
   opacity: 1;
   transform: translateY(-4px);
 }
+
 
