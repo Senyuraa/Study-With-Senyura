@@ -10,7 +10,7 @@ body {
   overflow: hidden; 
 }
    
-/* BACKGROUND */
+/* BACKGROUND */ 
 #bg {
   position: fixed;
   inset: 0;
@@ -492,6 +492,7 @@ body {
   opacity: 1;
   transform: translateY(-4px);
 }
+
 
 
 
