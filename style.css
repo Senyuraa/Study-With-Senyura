@@ -5,7 +5,7 @@
   box-sizing: border-box;
   font-family: "Nunito", sans-serif;
 }
-
+ 
 body {
   overflow: hidden; 
 }
@@ -492,5 +492,6 @@ body {
   opacity: 1;
   transform: translateY(-4px);
 }
+
 
 
